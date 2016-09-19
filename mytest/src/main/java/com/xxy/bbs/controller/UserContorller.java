@@ -27,6 +27,7 @@ public class UserContorller {
 	}
 	
 	//测试ip用
+	//0.01
 	public String getIpAddr(HttpServletRequest request) { 
 	    Enumeration<String> aa = request.getHeaderNames();
 	  /*  while (aa.hasMoreElements()) {
