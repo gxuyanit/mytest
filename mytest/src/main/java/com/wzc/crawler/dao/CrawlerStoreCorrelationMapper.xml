@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="crawler.wzc.dao.CrawlerStoreCorrelationMapper">
+	<resultMap id="BaseResultMap" type="crawler.wzc.entity.CrawlerStoreCorrelation">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="source_Id" property="sourceId" jdbcType="INTEGER" />
+		<result column="store_id" property="storeId" jdbcType="VARCHAR" />
+		<result column="beyond_Id" property="beyondId" jdbcType="VARCHAR" />
+		<result column="other" property="other" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, source_Id, store_id, beyond_Id, other
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from crawler_store_correlation
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from crawler_store_correlation
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="crawler.wzc.entity.CrawlerStoreCorrelation">
+		insert into crawler_store_correlation (id, source_Id, store_id,
+		beyond_Id, other)
+		values (#{id,jdbcType=VARCHAR}, #{sourceId,jdbcType=INTEGER}, #{storeId,jdbcType=VARCHAR},
+		#{beyondId,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="crawler.wzc.entity.CrawlerStoreCorrelation">
+		insert into crawler_store_correlation
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="sourceId != null">
+				source_Id,
+			</if>
+			<if test="storeId != null">
+				store_id,
+			</if>
+			<if test="beyondId != null">
+				beyond_Id,
+			</if>
+			<if test="other != null">
+				other,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="sourceId != null">
+				#{sourceId,jdbcType=INTEGER},
+			</if>
+			<if test="storeId != null">
+				#{storeId,jdbcType=VARCHAR},
+			</if>
+			<if test="beyondId != null">
+				#{beyondId,jdbcType=VARCHAR},
+			</if>
+			<if test="other != null">
+				#{other,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="crawler.wzc.entity.CrawlerStoreCorrelation">
+		update crawler_store_correlation
+		<set>
+			<if test="sourceId != null">
+				source_Id = #{sourceId,jdbcType=INTEGER},
+			</if>
+			<if test="storeId != null">
+				store_id = #{storeId,jdbcType=VARCHAR},
+			</if>
+			<if test="beyondId != null">
+				beyond_Id = #{beyondId,jdbcType=VARCHAR},
+			</if>
+			<if test="other != null">
+				other = #{other,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="crawler.wzc.entity.CrawlerStoreCorrelation">
+		update crawler_store_correlation
+		set source_Id = #{sourceId,jdbcType=INTEGER},
+		store_id = #{storeId,jdbcType=VARCHAR},
+		beyond_Id = #{beyondId,jdbcType=VARCHAR},
+		other = #{other,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="findByCriteria" resultMap="BaseResultMap" parameterType="crawler.wzc.entity.CrawlerStoreCorrelation">
+		select
+		<include refid="Base_Column_List" />
+		from crawler_store_correlation
+		<where>
+			1=1
+			<if test="sourceId != null">
+				and source_Id = #{sourceId,jdbcType=INTEGER}
+			</if>
+			<if test="storeId != null">
+				and store_id = #{storeId,jdbcType=VARCHAR}
+			</if>
+			<if test="beyondId != null">
+				and beyond_Id = #{beyondId,jdbcType=VARCHAR}
+			</if>
+			<if test="other != null">
+				and other = #{other,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+</mapper>

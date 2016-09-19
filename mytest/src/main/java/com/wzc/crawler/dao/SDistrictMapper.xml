@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="crawler.wzc.dao.SDistrictMapper">
+	<resultMap id="BaseResultMap" type="crawler.wzc.entity.SDistrict">
+		<id column="DistrictID" property="districtid" jdbcType="INTEGER" />
+		<result column="DistrictName" property="districtname" jdbcType="VARCHAR" />
+		<result column="CityID" property="cityid" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		DistrictID, DistrictName, CityID
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from s_district
+		where DistrictID = #{districtid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from s_district
+		where DistrictID = #{districtid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="crawler.wzc.entity.SDistrict">
+		insert into s_district (DistrictID, DistrictName, CityID
+		)
+		values (#{districtid,jdbcType=INTEGER}, #{districtname,jdbcType=VARCHAR}, #{cityid,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="crawler.wzc.entity.SDistrict">
+		insert into s_district
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="districtid != null">
+				DistrictID,
+			</if>
+			<if test="districtname != null">
+				DistrictName,
+			</if>
+			<if test="cityid != null">
+				CityID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="districtid != null">
+				#{districtid,jdbcType=INTEGER},
+			</if>
+			<if test="districtname != null">
+				#{districtname,jdbcType=VARCHAR},
+			</if>
+			<if test="cityid != null">
+				#{cityid,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="crawler.wzc.entity.SDistrict">
+		update s_district
+		<set>
+			<if test="districtname != null">
+				DistrictName = #{districtname,jdbcType=VARCHAR},
+			</if>
+			<if test="cityid != null">
+				CityID = #{cityid,jdbcType=INTEGER},
+			</if>
+		</set>
+		where DistrictID = #{districtid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="crawler.wzc.entity.SDistrict">
+		update s_district
+		set DistrictName = #{districtname,jdbcType=VARCHAR},
+		CityID = #{cityid,jdbcType=INTEGER}
+		where DistrictID = #{districtid,jdbcType=INTEGER}
+	</update>
+	<select id="findByCriteria" resultMap="BaseResultMap" parameterType="crawler.wzc.entity.SDistrict">
+		select
+		<include refid="Base_Column_List" />
+		from s_district
+		<where>
+			1=1
+			<if test="districtname != null">
+				and DistrictName = #{districtname,jdbcType=VARCHAR}
+			</if>
+			<if test="cityid != null">
+				and CityID = #{cityid,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<select id="getByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from s_district where DistrictName = #{name,jdbcType=VARCHAR} order by DistrictID limit 1
+	</select>
+	
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from s_district
+	</select>
+</mapper>

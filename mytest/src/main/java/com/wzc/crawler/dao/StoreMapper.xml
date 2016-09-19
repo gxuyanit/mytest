@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="crawler.wzc.dao.StoreMapper">
+	<resultMap id="BaseResultMap" type="crawler.wzc.entity.Store">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="company_id" property="companyId" jdbcType="VARCHAR" />
+		<result column="district_id" property="districtId" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="longitude" property="longitude" jdbcType="DOUBLE" />
+		<result column="latitude" property="latitude" jdbcType="DOUBLE" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="start_Work_Time" property="startWorkTime" jdbcType="VARCHAR" />
+		<result column="end_Work_Time" property="endWorkTime" jdbcType="VARCHAR" />
+		<result column="beyond_Id" property="beyondId" jdbcType="VARCHAR" />
+		<result column="other" property="other" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		crawler_store.id, company_id, district_id, name, address, longitude, latitude, tel, start_Work_Time,
+		end_Work_Time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from crawler_store
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from crawler_store
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="crawler.wzc.entity.Store">
+		insert into crawler_store (id, company_id, district_id,
+		name, address, longitude,
+		latitude, tel, start_Work_Time,
+		end_Work_Time)
+		values (#{id,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, #{districtId,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{longitude,jdbcType=DOUBLE},
+		#{latitude,jdbcType=DOUBLE}, #{tel,jdbcType=VARCHAR}, #{startWorkTime,jdbcType=VARCHAR},
+		#{endWorkTime,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="crawler.wzc.entity.Store">
+		insert into crawler_store
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="companyId != null">
+				company_id,
+			</if>
+			<if test="districtId != null">
+				district_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="longitude != null">
+				longitude,
+			</if>
+			<if test="latitude != null">
+				latitude,
+			</if>
+			<if test="tel != null">
+				tel,
+			</if>
+			<if test="startWorkTime != null">
+				start_Work_Time,
+			</if>
+			<if test="endWorkTime != null">
+				end_Work_Time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				#{companyId,jdbcType=VARCHAR},
+			</if>
+			<if test="districtId != null">
+				#{districtId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="longitude != null">
+				#{longitude,jdbcType=DOUBLE},
+			</if>
+			<if test="latitude != null">
+				#{latitude,jdbcType=DOUBLE},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="startWorkTime != null">
+				#{startWorkTime,jdbcType=VARCHAR},
+			</if>
+			<if test="endWorkTime != null">
+				#{endWorkTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="crawler.wzc.entity.Store">
+		update crawler_store
+		<set>
+			<if test="companyId != null">
+				company_id = #{companyId,jdbcType=VARCHAR},
+			</if>
+			<if test="districtId != null">
+				district_id = #{districtId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="longitude != null">
+				longitude = #{longitude,jdbcType=DOUBLE},
+			</if>
+			<if test="latitude != null">
+				latitude = #{latitude,jdbcType=DOUBLE},
+			</if>
+			<if test="tel != null">
+				tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="startWorkTime != null">
+				start_Work_Time = #{startWorkTime,jdbcType=VARCHAR},
+			</if>
+			<if test="endWorkTime != null">
+				end_Work_Time = #{endWorkTime,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="crawler.wzc.entity.Store">
+		update crawler_store
+		set company_id = #{companyId,jdbcType=VARCHAR},
+		district_id = #{districtId,jdbcType=INTEGER},
+		name = #{name,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR},
+		longitude = #{longitude,jdbcType=DOUBLE},
+		latitude = #{latitude,jdbcType=DOUBLE},
+		tel = #{tel,jdbcType=VARCHAR},
+		start_Work_Time = #{startWorkTime,jdbcType=VARCHAR},
+		end_Work_Time = #{endWorkTime,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="findByCriteria" resultMap="BaseResultMap" parameterType="crawler.wzc.entity.Store">
+		select
+		<include refid="Base_Column_List" />
+		from crawler_store
+		<where>
+			1=1
+			<if test="companyId != null">
+				and company_id = #{companyId,jdbcType=VARCHAR}
+			</if>
+			<if test="districtId != null">
+				and district_id = #{districtId,jdbcType=INTEGER}
+			</if>
+			<if test="name != null">
+				and name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="address != null">
+				and address = #{address,jdbcType=VARCHAR}
+			</if>
+			<if test="longitude != null">
+				and longitude = #{longitude,jdbcType=DOUBLE}
+			</if>
+			<if test="latitude != null">
+				and latitude = #{latitude,jdbcType=DOUBLE}
+			</if>
+			<if test="tel != null">
+				and tel = #{tel,jdbcType=VARCHAR}
+			</if>
+			<if test="startWorkTime != null">
+				and start_Work_Time = #{startWorkTime,jdbcType=VARCHAR}
+			</if>
+			<if test="endWorkTime != null">
+				and end_Work_Time = #{endWorkTime,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	<select id="findBySource" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		,beyond_Id,other from crawler_Store LEFT JOIN crawler_store_correlation t2 ON
+		crawler_store.id = t2.store_id
+		<where>
+			source_Id = #{sourceId,jdbcType=INTEGER}
+			and district_Id = #{districtId,jdbcType=VARCHAR}
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		 from crawler_Store 
+	</select>
+</mapper>

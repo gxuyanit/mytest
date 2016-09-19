@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="crawler.wzc.dao.BusinessCirclesMapper" >
+  <resultMap id="BaseResultMap" type="crawler.wzc.entity.BusinessCircles" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="s_district_id" property="sDistrictId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, s_district_id, name, longitude, latitude
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from crawler_businesscircles
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from crawler_businesscircles
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="crawler.wzc.entity.BusinessCircles" >
+    insert into crawler_businesscircles (id, s_district_id, name, 
+      longitude, latitude)
+    values (#{id,jdbcType=VARCHAR}, #{sDistrictId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="crawler.wzc.entity.BusinessCircles" >
+    insert into crawler_businesscircles
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sDistrictId != null" >
+        s_district_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sDistrictId != null" >
+        #{sDistrictId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="crawler.wzc.entity.BusinessCircles" >
+    update crawler_businesscircles
+    <set >
+      <if test="sDistrictId != null" >
+        s_district_id = #{sDistrictId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="crawler.wzc.entity.BusinessCircles" >
+    update crawler_businesscircles
+    set s_district_id = #{sDistrictId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      latitude = #{latitude,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="findByCriteria" resultMap="BaseResultMap" parameterType="crawler.wzc.entity.BusinessCircles">
+  select <include refid="Base_Column_List"/>
+  from crawler_businesscircles
+  <where>
+   1=1
+  	 <if test="sDistrictId != null" >
+        and s_district_id = #{sDistrictId,jdbcType=INTEGER}
+      </if>
+      <if test="name != null" >
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="longitude != null" >
+        and longitude = #{longitude,jdbcType=DOUBLE}
+      </if>
+      <if test="latitude != null" >
+        and latitude = #{latitude,jdbcType=DOUBLE}
+      </if>
+  </where>
+  </select>
+</mapper>

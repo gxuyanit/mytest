@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="crawler.wzc.dao.CrawlerCityMapper">
+	<resultMap id="BaseResultMap" type="crawler.wzc.entity.CrawlerCity">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="source_Id" property="sourceId" jdbcType="INTEGER" />
+		<result column="city_Id" property="cityId" jdbcType="VARCHAR" />
+		<result column="beyond_Id" property="beyondId" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, source_Id, city_Id, beyond_Id
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from crawler_city
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from crawler_city
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="crawler.wzc.entity.CrawlerCity">
+		insert into crawler_city (id, source_Id, city_Id,
+		beyond_Id)
+		values (#{id,jdbcType=INTEGER}, #{sourceId,jdbcType=INTEGER}, #{cityId,jdbcType=VARCHAR},
+		#{beyondId,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="crawler.wzc.entity.CrawlerCity">
+		insert into crawler_city
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="sourceId != null">
+				source_Id,
+			</if>
+			<if test="cityId != null">
+				city_Id,
+			</if>
+			<if test="beyondId != null">
+				beyond_Id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="sourceId != null">
+				#{sourceId,jdbcType=INTEGER},
+			</if>
+			<if test="cityId != null">
+				#{cityId,jdbcType=VARCHAR},
+			</if>
+			<if test="beyondId != null">
+				#{beyondId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="crawler.wzc.entity.CrawlerCity">
+		update crawler_city
+		<set>
+			<if test="sourceId != null">
+				source_Id = #{sourceId,jdbcType=INTEGER},
+			</if>
+			<if test="cityId != null">
+				city_Id = #{cityId,jdbcType=VARCHAR},
+			</if>
+			<if test="beyondId != null">
+				beyond_Id = #{beyondId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="crawler.wzc.entity.CrawlerCity">
+		update crawler_city
+		set source_Id = #{sourceId,jdbcType=INTEGER},
+		city_Id = #{cityId,jdbcType=VARCHAR},
+		beyond_Id = #{beyondId,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="findByCriteria" resultMap="BaseResultMap" parameterType="crawler.wzc.entity.CrawlerCity">
+		select
+		<include refid="Base_Column_List" />
+		from crawler_city
+		<where>
+			1=1
+			<if test="sourceId != null">
+				and source_Id = #{sourceId,jdbcType=INTEGER}
+			</if>
+			<if test="cityId != null">
+				and city_Id = #{cityId,jdbcType=VARCHAR}
+			</if>
+			<if test="beyondId != null">
+				and beyond_Id = #{beyondId,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+</mapper>

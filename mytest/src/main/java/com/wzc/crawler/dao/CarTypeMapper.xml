@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="crawler.wzc.dao.CarTypeMapper">
+	<resultMap id="BaseResultMap" type="crawler.wzc.entity.CarType">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="comany_Id" property="comanyId" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="group_name" property="groupName" jdbcType="VARCHAR" />
+		<result column="transmission_type" property="transmissionType" jdbcType="VARCHAR" />
+		<result column="displacement" property="displacement" jdbcType="VARCHAR" />
+		<result column="manned" property="manned" jdbcType="VARCHAR" />
+		<result column="image_Path" property="imagePath" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, comany_Id, name, group_name, transmission_type, displacement, manned, image_Path
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from crawler_cartype
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from crawler_cartype
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="crawler.wzc.entity.CarType">
+		insert into crawler_cartype (id, comany_Id, name,
+		group_name, transmission_type, displacement,
+		manned, image_Path)
+		values (#{id,jdbcType=VARCHAR}, #{comanyId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{groupName,jdbcType=VARCHAR}, #{transmissionType,jdbcType=VARCHAR},
+		#{displacement,jdbcType=VARCHAR},
+		#{manned,jdbcType=VARCHAR}, #{imagePath,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="crawler.wzc.entity.CarType">
+		insert into crawler_cartype
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="comanyId != null">
+				comany_Id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="groupName != null">
+				group_name,
+			</if>
+			<if test="transmissionType != null">
+				transmission_type,
+			</if>
+			<if test="displacement != null">
+				displacement,
+			</if>
+			<if test="manned != null">
+				manned,
+			</if>
+			<if test="imagePath != null">
+				image_Path,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="comanyId != null">
+				#{comanyId,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="groupName != null">
+				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="transmissionType != null">
+				#{transmissionType,jdbcType=VARCHAR},
+			</if>
+			<if test="displacement != null">
+				#{displacement,jdbcType=VARCHAR},
+			</if>
+			<if test="manned != null">
+				#{manned,jdbcType=VARCHAR},
+			</if>
+			<if test="imagePath != null">
+				#{imagePath,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="crawler.wzc.entity.CarType">
+		update crawler_cartype
+		<set>
+			<if test="comanyId != null">
+				comany_Id = #{comanyId,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="groupName != null">
+				group_name = #{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="transmissionType != null">
+				transmission_type = #{transmissionType,jdbcType=VARCHAR},
+			</if>
+			<if test="displacement != null">
+				displacement = #{displacement,jdbcType=VARCHAR},
+			</if>
+			<if test="manned != null">
+				manned = #{manned,jdbcType=VARCHAR},
+			</if>
+			<if test="imagePath != null">
+				image_Path = #{imagePath,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="crawler.wzc.entity.CarType">
+		update crawler_cartype
+		set comany_Id = #{comanyId,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		group_name = #{groupName,jdbcType=VARCHAR},
+		transmission_type = #{transmissionType,jdbcType=VARCHAR},
+		displacement = #{displacement,jdbcType=VARCHAR},
+		manned = #{manned,jdbcType=VARCHAR},
+		image_Path = #{imagePath,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="findByCriteria" resultMap="BaseResultMap" parameterType="crawler.wzc.entity.CarType">
+		select
+		<include refid="Base_Column_List" />
+		from crawler_cartype
+		<where>
+			1=1
+			<if test="comanyId != null">
+				and comany_Id = #{comanyId,jdbcType=VARCHAR}
+			</if>
+			<if test="name != null">
+				and name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="groupName != null">
+				and group_name = #{groupName,jdbcType=VARCHAR}
+			</if>
+			<if test="transmissionType != null">
+				and transmission_type = #{transmissionType,jdbcType=VARCHAR}
+			</if>
+			<if test="displacement != null">
+				and displacement = #{displacement,jdbcType=VARCHAR}
+			</if>
+			<if test="manned != null">
+				and manned = #{manned,jdbcType=VARCHAR}
+			</if>
+			<if test="imagePath != null">
+				and image_Path = #{imagePath,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+</mapper>

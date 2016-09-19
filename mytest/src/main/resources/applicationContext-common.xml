@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-lazy-init="true">
+	
+
+<!-- <bean id="userService" class="com.xxy.bbs.service.impl.userServiceImpl"></bean> -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+		destroy-method="close">
+		<property name="poolProperties">
+			<bean class="org.apache.tomcat.jdbc.pool.PoolProperties">
+				<property name="driverClassName" value="${db.driver}" />
+				<property name="url" value="${db.url}" />
+				<property name="username" value="${db.user}" />
+				<property name="password" value="${db.password}" />
+				<property name="jmxEnabled" value="true" />
+				<property name="testWhileIdle" value="true" />
+				<property name="testOnBorrow" value="true" />
+				<property name="testOnReturn" value="false" />
+				<property name="validationInterval" value="30000" />
+				<property name="validationQuery" value="SELECT 1" />
+				<property name="timeBetweenEvictionRunsMillis" value="30000" />
+				<property name="maxActive" value="${db.maxActive}" />
+				<property name="initialSize" value="${db.initialSize}" />
+				<property name="maxWait" value="10000" />
+				<property name="minEvictableIdleTimeMillis" value="30000" />
+				<property name="minIdle" value="10" />
+				<property name="logAbandoned" value="false" />
+				<property name="removeAbandoned" value="true" />
+				<property name="removeAbandonedTimeout" value="60" />
+				<property name="jdbcInterceptors"
+					value="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer" />
+			</bean>
+		</property>
+	</bean>
+	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+		<property name="dataSource" ref="readDataSource" /> </bean> -->
+
+	<!-- myBatis文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-configuration.xml"></property>
+		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:com/wzc/crawler/dao/*.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.wzc.crawler" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<!-- <property name="markerInterface" value="com.wzc.order.core.daosupport.IPersistenceSupport" 
+			/> -->
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	
+
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
+
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert*" propagation="REQUIRED"
+				rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED"
+				rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED"
+				rollback-for="Exception" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="serviceMethods"
+			expression="execution(* com.wzc.crawler.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods" />
+	</aop:config>
+
+	<!-- 定义调用对象和调用对象的方法 -->
+	<!-- 
+	<bean id="sendUserOrderMsgTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		调用的类
+		<property name="targetObject" ref="userOrderMsgService" />
+		调用类中的方法
+		<property name="targetMethod" value="sendUserOrderMsg" />
+		<property name="concurrent" value="false" />
+	</bean>
+	定义触发器
+	<bean id="sendUserOrderMsgTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="sendUserOrderMsgTask" />
+		<property name="cronExpression" value="0 0/5 * * * ?" />每5分钟发送一次信息
+	</bean>
+	定义调用对象和调用对象的方法
+	<bean id="scanAppOrderAutoCancleTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		调用的类
+		<property name="targetObject" ref="appOrderTimerTaskService" />
+		调用类中的方法
+		<property name="targetMethod" value="scanOrderAutoCancle" />
+		<property name="concurrent" value="false" />
+	</bean>
+	定义触发器
+	<bean id="scanAppOrderAutoCancleTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="scanAppOrderAutoCancleTask" />
+		<property name="cronExpression" value="0 0,15,30,45 * * * ?" />每15分钟发送一次信息
+	</bean>
+	定义触发器
+	<bean id="scanAppOrderBeforeCarTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="scanAppOrderBeforeCarTask" />
+		<property name="cronExpression" value="0 0/1 * * * ?" />每30分钟发送一次信息
+	</bean>
+	定义调用对象和调用对象的方法
+	<bean id="scanAppOrderBeforeCarTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		调用的类
+		<property name="targetObject" ref="appOrderTimerTaskService" />
+		调用类中的方法
+		<property name="targetMethod" value="scanAppOrderBeforeCar" />
+
+		<property name="concurrent" value="false" />
+	</bean>
+	定义调用对象和调用对象的方法
+	<bean id="scanUserOrderMsgTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		调用的类
+		<property name="targetObject" ref="userOrderMsgService" />
+		调用类中的方法
+		<property name="targetMethod" value="scanUserOrderMsg" />
+
+		<property name="concurrent" value="false" />
+	</bean>
+	定义触发器
+	<bean id="scanUserOrderMsgTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="scanUserOrderMsgTask" />
+		<property name="cronExpression" value="0 0 0/1 * * ?" />每1小时扫描一次需要发送的信息
+	</bean>
+	总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序
+	<bean id="startQuertz" lazy-init="false"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="scanUserOrderMsgTrigger" />
+				<ref bean="sendUserOrderMsgTrigger" />
+				<ref bean="scanAppOrderAutoCancleTrigger" />
+				<ref bean="scanAppOrderBeforeCarTrigger" />
+			</list>
+		</property>
+	</bean> -->
+       
+</beans>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-3.2.xsd
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+  ">
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.wzc.crawler" >
+	  	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" /> 
+	</context:component-scan>
+	
+	<mvc:view-controller path="/404" view-name="404" />
+	<mvc:view-controller path="/error" view-name="500" />
+
+	<!-- <mvc:resources mapping="/config/**" location="/config/" />
+	<mvc:resources mapping="/images/**" location="/images/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/skin/**" location="/skin/" /> -->
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 如果使用jstl的话，配置下面的属性 -->
+	<!-- 	<property name="prefix" value="/pages/"></property> -->
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<!-- <bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<property name="objectMapper">
+		                <bean class="com.wzc.manage.common.util.CustomObjectMapper"></bean>
+		            </property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*/*"/>
+			<bean class="com.wzc.manage.filter.LoginCheckInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors> -->
+
+</beans>

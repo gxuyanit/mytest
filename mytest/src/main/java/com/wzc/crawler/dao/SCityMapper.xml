@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="crawler.wzc.dao.SCityMapper">
+	<resultMap id="BaseResultMap" type="crawler.wzc.entity.SCity">
+		<id column="CityID" property="cityid" jdbcType="VARCHAR" />
+		<result column="CityName" property="cityname" jdbcType="VARCHAR" />
+		<result column="ZipCode" property="zipcode" jdbcType="VARCHAR" />
+		<result column="Abbreviation" property="abbreviation" jdbcType="VARCHAR" />
+		<result column="ProvinceID" property="provinceid" jdbcType="VARCHAR" />
+		<result column="Status" property="status" jdbcType="INTEGER" />
+		<result column="longitude" property="longitude" jdbcType="DOUBLE" />
+		<result column="latitude" property="latitude" jdbcType="DOUBLE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		CityID, CityName, ZipCode, Abbreviation, ProvinceID, Status, longitude, latitude
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from s_city
+		where CityID = #{cityid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from s_city
+		where CityID = #{cityid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="crawler.wzc.entity.SCity">
+		insert into s_city (CityID, CityName, ZipCode,
+		Abbreviation, ProvinceID, Status,
+		longitude, latitude)
+		values (#{cityid,jdbcType=VARCHAR}, #{cityname,jdbcType=VARCHAR}, #{zipcode,jdbcType=VARCHAR},
+		#{abbreviation,jdbcType=VARCHAR}, #{provinceid,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+		#{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE})
+	</insert>
+	<insert id="insertSelective" parameterType="crawler.wzc.entity.SCity">
+		insert into s_city
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cityid != null">
+				CityID,
+			</if>
+			<if test="cityname != null">
+				CityName,
+			</if>
+			<if test="zipcode != null">
+				ZipCode,
+			</if>
+			<if test="abbreviation != null">
+				Abbreviation,
+			</if>
+			<if test="provinceid != null">
+				ProvinceID,
+			</if>
+			<if test="status != null">
+				Status,
+			</if>
+			<if test="longitude != null">
+				longitude,
+			</if>
+			<if test="latitude != null">
+				latitude,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="cityid != null">
+				#{cityid,jdbcType=VARCHAR},
+			</if>
+			<if test="cityname != null">
+				#{cityname,jdbcType=VARCHAR},
+			</if>
+			<if test="zipcode != null">
+				#{zipcode,jdbcType=VARCHAR},
+			</if>
+			<if test="abbreviation != null">
+				#{abbreviation,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceid != null">
+				#{provinceid,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="longitude != null">
+				#{longitude,jdbcType=DOUBLE},
+			</if>
+			<if test="latitude != null">
+				#{latitude,jdbcType=DOUBLE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="crawler.wzc.entity.SCity">
+		update s_city
+		<set>
+			<if test="cityname != null">
+				CityName = #{cityname,jdbcType=VARCHAR},
+			</if>
+			<if test="zipcode != null">
+				ZipCode = #{zipcode,jdbcType=VARCHAR},
+			</if>
+			<if test="abbreviation != null">
+				Abbreviation = #{abbreviation,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceid != null">
+				ProvinceID = #{provinceid,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				Status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="longitude != null">
+				longitude = #{longitude,jdbcType=DOUBLE},
+			</if>
+			<if test="latitude != null">
+				latitude = #{latitude,jdbcType=DOUBLE},
+			</if>
+		</set>
+		where CityID = #{cityid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="crawler.wzc.entity.SCity">
+		update s_city
+		set CityName = #{cityname,jdbcType=VARCHAR},
+		ZipCode = #{zipcode,jdbcType=VARCHAR},
+		Abbreviation = #{abbreviation,jdbcType=VARCHAR},
+		ProvinceID = #{provinceid,jdbcType=VARCHAR},
+		Status = #{status,jdbcType=INTEGER},
+		longitude = #{longitude,jdbcType=DOUBLE},
+		latitude = #{latitude,jdbcType=DOUBLE}
+		where CityID = #{cityid,jdbcType=VARCHAR}
+	</update>
+
+	<select id="findByCriteria" resultMap="BaseResultMap" parameterType="crawler.wzc.entity.SCity">
+		select
+		<include refid="Base_Column_List" />
+		from s_city
+		<where>
+		1=1
+			<if test="cityname != null">
+				and CityName = #{cityname,jdbcType=VARCHAR}
+			</if>
+			<if test="zipcode != null">
+				and ZipCode = #{zipcode,jdbcType=VARCHAR}
+			</if>
+			<if test="abbreviation != null">
+				and Abbreviation = #{abbreviation,jdbcType=VARCHAR}
+			</if>
+			<if test="provinceid != null">
+				and ProvinceID = #{provinceid,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null">
+				and Status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="longitude != null">
+				and longitude = #{longitude,jdbcType=DOUBLE}
+			</if>
+			<if test="latitude != null">
+				and latitude = #{latitude,jdbcType=DOUBLE}
+			</if>
+		</where>
+	</select>
+</mapper>

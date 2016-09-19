@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="crawler.wzc.dao.ShenZhouCarTypeMapper" >
+  <resultMap id="BaseResultMap" type="crawler.wzc.entity.ShenZhouCarType" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="chexi" property="chexi" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="VARCHAR" />
+    <result column="peizhi" property="peizhi" jdbcType="VARCHAR" />
+    <result column="zuowei" property="zuowei" jdbcType="VARCHAR" />
+    <result column="chemen" property="chemen" jdbcType="VARCHAR" />
+    <result column="ranyoutype" property="ranyoutype" jdbcType="VARCHAR" />
+    <result column="biansu" property="biansu" jdbcType="VARCHAR" />
+    <result column="pailiang" property="pailiang" jdbcType="VARCHAR" />
+    <result column="ranyouhao" property="ranyouhao" jdbcType="VARCHAR" />
+    <result column="qudong" property="qudong" jdbcType="VARCHAR" />
+    <result column="fadongji" property="fadongji" jdbcType="VARCHAR" />
+    <result column="tianchuang" property="tianchuang" jdbcType="VARCHAR" />
+    <result column="youxiang" property="youxiang" jdbcType="VARCHAR" />
+    <result column="yinxiang" property="yinxiang" jdbcType="VARCHAR" />
+    <result column="zuoyi" property="zuoyi" jdbcType="VARCHAR" />
+    <result column="daozheleida" property="daozheleida" jdbcType="VARCHAR" />
+    <result column="qinang" property="qinang" jdbcType="VARCHAR" />
+    <result column="DVD" property="dvd" jdbcType="VARCHAR" />
+    <result column="GPS" property="gps" jdbcType="VARCHAR" />
+    <result column="indate" property="indate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, chexi, year, peizhi, zuowei, chemen, ranyoutype, biansu, pailiang, ranyouhao, 
+    qudong, fadongji, tianchuang, youxiang, yinxiang, zuoyi, daozheleida, qinang, DVD, 
+    GPS, indate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shenzhou_cartype
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from shenzhou_cartype
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="crawler.wzc.entity.ShenZhouCarType" >
+    insert into shenzhou_cartype (id, name, chexi, 
+      year, peizhi, zuowei, 
+      chemen, ranyoutype, biansu, 
+      pailiang, ranyouhao, qudong, 
+      fadongji, tianchuang, youxiang, 
+      yinxiang, zuoyi, daozheleida, 
+      qinang, DVD, GPS, indate
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{chexi,jdbcType=VARCHAR}, 
+      #{year,jdbcType=VARCHAR}, #{peizhi,jdbcType=VARCHAR}, #{zuowei,jdbcType=VARCHAR}, 
+      #{chemen,jdbcType=VARCHAR}, #{ranyoutype,jdbcType=VARCHAR}, #{biansu,jdbcType=VARCHAR}, 
+      #{pailiang,jdbcType=VARCHAR}, #{ranyouhao,jdbcType=VARCHAR}, #{qudong,jdbcType=VARCHAR}, 
+      #{fadongji,jdbcType=VARCHAR}, #{tianchuang,jdbcType=VARCHAR}, #{youxiang,jdbcType=VARCHAR}, 
+      #{yinxiang,jdbcType=VARCHAR}, #{zuoyi,jdbcType=VARCHAR}, #{daozheleida,jdbcType=VARCHAR}, 
+      #{qinang,jdbcType=VARCHAR}, #{dvd,jdbcType=VARCHAR}, #{gps,jdbcType=VARCHAR}, #{indate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="crawler.wzc.entity.ShenZhouCarType" >
+    insert into shenzhou_cartype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="chexi != null" >
+        chexi,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="peizhi != null" >
+        peizhi,
+      </if>
+      <if test="zuowei != null" >
+        zuowei,
+      </if>
+      <if test="chemen != null" >
+        chemen,
+      </if>
+      <if test="ranyoutype != null" >
+        ranyoutype,
+      </if>
+      <if test="biansu != null" >
+        biansu,
+      </if>
+      <if test="pailiang != null" >
+        pailiang,
+      </if>
+      <if test="ranyouhao != null" >
+        ranyouhao,
+      </if>
+      <if test="qudong != null" >
+        qudong,
+      </if>
+      <if test="fadongji != null" >
+        fadongji,
+      </if>
+      <if test="tianchuang != null" >
+        tianchuang,
+      </if>
+      <if test="youxiang != null" >
+        youxiang,
+      </if>
+      <if test="yinxiang != null" >
+        yinxiang,
+      </if>
+      <if test="zuoyi != null" >
+        zuoyi,
+      </if>
+      <if test="daozheleida != null" >
+        daozheleida,
+      </if>
+      <if test="qinang != null" >
+        qinang,
+      </if>
+      <if test="dvd != null" >
+        DVD,
+      </if>
+      <if test="gps != null" >
+        GPS,
+      </if>
+      <if test="indate != null" >
+        indate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="chexi != null" >
+        #{chexi,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="peizhi != null" >
+        #{peizhi,jdbcType=VARCHAR},
+      </if>
+      <if test="zuowei != null" >
+        #{zuowei,jdbcType=VARCHAR},
+      </if>
+      <if test="chemen != null" >
+        #{chemen,jdbcType=VARCHAR},
+      </if>
+      <if test="ranyoutype != null" >
+        #{ranyoutype,jdbcType=VARCHAR},
+      </if>
+      <if test="biansu != null" >
+        #{biansu,jdbcType=VARCHAR},
+      </if>
+      <if test="pailiang != null" >
+        #{pailiang,jdbcType=VARCHAR},
+      </if>
+      <if test="ranyouhao != null" >
+        #{ranyouhao,jdbcType=VARCHAR},
+      </if>
+      <if test="qudong != null" >
+        #{qudong,jdbcType=VARCHAR},
+      </if>
+      <if test="fadongji != null" >
+        #{fadongji,jdbcType=VARCHAR},
+      </if>
+      <if test="tianchuang != null" >
+        #{tianchuang,jdbcType=VARCHAR},
+      </if>
+      <if test="youxiang != null" >
+        #{youxiang,jdbcType=VARCHAR},
+      </if>
+      <if test="yinxiang != null" >
+        #{yinxiang,jdbcType=VARCHAR},
+      </if>
+      <if test="zuoyi != null" >
+        #{zuoyi,jdbcType=VARCHAR},
+      </if>
+      <if test="daozheleida != null" >
+        #{daozheleida,jdbcType=VARCHAR},
+      </if>
+      <if test="qinang != null" >
+        #{qinang,jdbcType=VARCHAR},
+      </if>
+      <if test="dvd != null" >
+        #{dvd,jdbcType=VARCHAR},
+      </if>
+      <if test="gps != null" >
+        #{gps,jdbcType=VARCHAR},
+      </if>
+      <if test="indate != null" >
+        #{indate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="crawler.wzc.entity.ShenZhouCarType" >
+    update shenzhou_cartype
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="chexi != null" >
+        chexi = #{chexi,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="peizhi != null" >
+        peizhi = #{peizhi,jdbcType=VARCHAR},
+      </if>
+      <if test="zuowei != null" >
+        zuowei = #{zuowei,jdbcType=VARCHAR},
+      </if>
+      <if test="chemen != null" >
+        chemen = #{chemen,jdbcType=VARCHAR},
+      </if>
+      <if test="ranyoutype != null" >
+        ranyoutype = #{ranyoutype,jdbcType=VARCHAR},
+      </if>
+      <if test="biansu != null" >
+        biansu = #{biansu,jdbcType=VARCHAR},
+      </if>
+      <if test="pailiang != null" >
+        pailiang = #{pailiang,jdbcType=VARCHAR},
+      </if>
+      <if test="ranyouhao != null" >
+        ranyouhao = #{ranyouhao,jdbcType=VARCHAR},
+      </if>
+      <if test="qudong != null" >
+        qudong = #{qudong,jdbcType=VARCHAR},
+      </if>
+      <if test="fadongji != null" >
+        fadongji = #{fadongji,jdbcType=VARCHAR},
+      </if>
+      <if test="tianchuang != null" >
+        tianchuang = #{tianchuang,jdbcType=VARCHAR},
+      </if>
+      <if test="youxiang != null" >
+        youxiang = #{youxiang,jdbcType=VARCHAR},
+      </if>
+      <if test="yinxiang != null" >
+        yinxiang = #{yinxiang,jdbcType=VARCHAR},
+      </if>
+      <if test="zuoyi != null" >
+        zuoyi = #{zuoyi,jdbcType=VARCHAR},
+      </if>
+      <if test="daozheleida != null" >
+        daozheleida = #{daozheleida,jdbcType=VARCHAR},
+      </if>
+      <if test="qinang != null" >
+        qinang = #{qinang,jdbcType=VARCHAR},
+      </if>
+      <if test="dvd != null" >
+        DVD = #{dvd,jdbcType=VARCHAR},
+      </if>
+      <if test="gps != null" >
+        GPS = #{gps,jdbcType=VARCHAR},
+      </if>
+      <if test="indate != null" >
+        indate = #{indate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="crawler.wzc.entity.ShenZhouCarType" >
+    update shenzhou_cartype
+    set name = #{name,jdbcType=VARCHAR},
+      chexi = #{chexi,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      peizhi = #{peizhi,jdbcType=VARCHAR},
+      zuowei = #{zuowei,jdbcType=VARCHAR},
+      chemen = #{chemen,jdbcType=VARCHAR},
+      ranyoutype = #{ranyoutype,jdbcType=VARCHAR},
+      biansu = #{biansu,jdbcType=VARCHAR},
+      pailiang = #{pailiang,jdbcType=VARCHAR},
+      ranyouhao = #{ranyouhao,jdbcType=VARCHAR},
+      qudong = #{qudong,jdbcType=VARCHAR},
+      fadongji = #{fadongji,jdbcType=VARCHAR},
+      tianchuang = #{tianchuang,jdbcType=VARCHAR},
+      youxiang = #{youxiang,jdbcType=VARCHAR},
+      yinxiang = #{yinxiang,jdbcType=VARCHAR},
+      zuoyi = #{zuoyi,jdbcType=VARCHAR},
+      daozheleida = #{daozheleida,jdbcType=VARCHAR},
+      qinang = #{qinang,jdbcType=VARCHAR},
+      DVD = #{dvd,jdbcType=VARCHAR},
+      GPS = #{gps,jdbcType=VARCHAR},
+      indate = #{indate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

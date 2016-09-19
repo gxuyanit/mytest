@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="crawler.wzc.dao.CrawlerSourceMapper">
+	<resultMap id="BaseResultMap" type="crawler.wzc.entity.CrawlerSource">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="page_Sleep" property="pageSleep" jdbcType="INTEGER" />
+		<result column="round_Sleep" property="roundSleep" jdbcType="INTEGER" />
+		<result column="search_URL" property="searchUrl" jdbcType="VARCHAR" />
+		<result column="max_Connect_Error_Num" property="maxConnectErrorNum" jdbcType="INTEGER" />
+		<result column="max_Body_Error_Num" property="maxBodyErrorNum" jdbcType="INTEGER" />
+		<result column="thread_Size" property="threadSize" jdbcType="INTEGER" />
+		<result column="Crawler_citys" property="crawlerCitys" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, page_Sleep, round_Sleep, search_URL, max_Connect_Error_Num, max_Body_Error_Num,
+		thread_Size, Crawler_citys
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from crawler_source
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from crawler_source
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="crawler.wzc.entity.CrawlerSource">
+		insert into crawler_source (id, name, page_Sleep,
+		round_Sleep, search_URL, max_Connect_Error_Num,
+		max_Body_Error_Num, thread_Size, Crawler_citys
+		)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pageSleep,jdbcType=INTEGER},
+		#{roundSleep,jdbcType=INTEGER}, #{searchUrl,jdbcType=VARCHAR},
+		#{maxConnectErrorNum,jdbcType=INTEGER},
+		#{maxBodyErrorNum,jdbcType=INTEGER}, #{threadSize,jdbcType=INTEGER}, #{crawlerCitys,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="crawler.wzc.entity.CrawlerSource">
+		insert into crawler_source
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="pageSleep != null">
+				page_Sleep,
+			</if>
+			<if test="roundSleep != null">
+				round_Sleep,
+			</if>
+			<if test="searchUrl != null">
+				search_URL,
+			</if>
+			<if test="maxConnectErrorNum != null">
+				max_Connect_Error_Num,
+			</if>
+			<if test="maxBodyErrorNum != null">
+				max_Body_Error_Num,
+			</if>
+			<if test="threadSize != null">
+				thread_Size,
+			</if>
+			<if test="crawlerCitys != null">
+				Crawler_citys,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="pageSleep != null">
+				#{pageSleep,jdbcType=INTEGER},
+			</if>
+			<if test="roundSleep != null">
+				#{roundSleep,jdbcType=INTEGER},
+			</if>
+			<if test="searchUrl != null">
+				#{searchUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="maxConnectErrorNum != null">
+				#{maxConnectErrorNum,jdbcType=INTEGER},
+			</if>
+			<if test="maxBodyErrorNum != null">
+				#{maxBodyErrorNum,jdbcType=INTEGER},
+			</if>
+			<if test="threadSize != null">
+				#{threadSize,jdbcType=INTEGER},
+			</if>
+			<if test="crawlerCitys != null">
+				#{crawlerCitys,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="crawler.wzc.entity.CrawlerSource">
+		update crawler_source
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="pageSleep != null">
+				page_Sleep = #{pageSleep,jdbcType=INTEGER},
+			</if>
+			<if test="roundSleep != null">
+				round_Sleep = #{roundSleep,jdbcType=INTEGER},
+			</if>
+			<if test="searchUrl != null">
+				search_URL = #{searchUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="maxConnectErrorNum != null">
+				max_Connect_Error_Num = #{maxConnectErrorNum,jdbcType=INTEGER},
+			</if>
+			<if test="maxBodyErrorNum != null">
+				max_Body_Error_Num = #{maxBodyErrorNum,jdbcType=INTEGER},
+			</if>
+			<if test="threadSize != null">
+				thread_Size = #{threadSize,jdbcType=INTEGER},
+			</if>
+			<if test="crawlerCitys != null">
+				Crawler_citys = #{crawlerCitys,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="crawler.wzc.entity.CrawlerSource">
+		update crawler_source
+		set name = #{name,jdbcType=VARCHAR},
+		page_Sleep = #{pageSleep,jdbcType=INTEGER},
+		round_Sleep = #{roundSleep,jdbcType=INTEGER},
+		search_URL = #{searchUrl,jdbcType=VARCHAR},
+		max_Connect_Error_Num = #{maxConnectErrorNum,jdbcType=INTEGER},
+		max_Body_Error_Num = #{maxBodyErrorNum,jdbcType=INTEGER},
+		thread_Size = #{threadSize,jdbcType=INTEGER},
+		Crawler_citys = #{crawlerCitys,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="findByCriteria" resultMap="BaseResultMap" parameterType="crawler.wzc.entity.CrawlerSource">
+		select
+		<include refid="Base_Column_List" />
+		from crawler_source
+		<where>
+			1=1
+			<if test="name != null">
+				and name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="pageSleep != null">
+				and page_Sleep = #{pageSleep,jdbcType=INTEGER}
+			</if>
+			<if test="roundSleep != null">
+				and round_Sleep = #{roundSleep,jdbcType=INTEGER}
+			</if>
+			<if test="searchUrl != null">
+				and search_URL = #{searchUrl,jdbcType=VARCHAR}
+			</if>
+			<if test="maxConnectErrorNum != null">
+				and max_Connect_Error_Num = #{maxConnectErrorNum,jdbcType=INTEGER}
+			</if>
+			<if test="maxBodyErrorNum != null">
+				and max_Body_Error_Num = #{maxBodyErrorNum,jdbcType=INTEGER}
+			</if>
+			<if test="threadSize != null">
+				and thread_Size = #{threadSize,jdbcType=INTEGER}
+			</if>
+			<if test="crawlerCitys != null">
+				and Crawler_citys = #{crawlerCitys,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+</mapper>
